@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ###### Architecture ######
 echo "  # Architecture    : "
