@@ -1,9 +1,7 @@
 #!/bin/bash
 
 ## Architecture ##
-OS=`hostnamectl | grep "Operating System" | cut -d':' -f2 2>/dev/null`
-ARCH=`hostnamectl | grep "Architecture" | cut -d':' -f2 2>/dev/null`
-KERNEL=`hostnamectl | grep "Kernel" | cut -d':' -f2 2>/dev/null`
+ARC=`uname -a`
 
 ## CPU physical ##
 CPU_PHYSI=`lscpu | grep "^CPU(s):" | awk '{print $2}' 2>/dev/null`
@@ -34,7 +32,7 @@ LAST_BOOT=`who -b | awk '{print $3 " " $ 4}' 2>/dev/null`
 
 ## LVM use ##
 LVM_USE="no"
-COUNT=`cat /etc/fstab 2>/dev/null | grep "/dev/mapper" | wc -l`
+COUNT=`lsblk | grep lvm | wc -l`
 if [ $COUNT > 0 ]
 then
 	LVM_USE="yes"
@@ -47,17 +45,14 @@ CONN_TCP=`last | grep "still logged in" | wc -l`
 USER_LOG=`who | wc -l`
 
 ## Network ##
-IP=`ip addr | grep "enp0s3" | awk 'FNR==2 {print $2}' 2>/dev/null | sed 's/\/24//'`
+IP=`hostname -I`
 MAC=`ip link show | grep "link/ether" | awk '{print $2}' 2>/dev/null`
 
 ## Sudo ##
 SUDO=`cat /var/log/sudo/sudo.log 2>/dev/null | grep "COMMAND" | wc -l`
 
 #### Printout ####
-wall "  # Architecture    :
-        - operating system : $OS
-	- architecture     : $ARCH
-	- kernel version   : $KERNEL
+wall "  # Architecture    : $ARC
   # CPU physical    : $CPU_PHYSI
   # vCPU            : $VCPU
   # Memory Usage    : $MEMORY_USAGE
@@ -69,5 +64,5 @@ wall "  # Architecture    :
   # User log        : $USER_LOG
   # Network         :
  	- IPv4 address : $IP
-	- MAC address : $MAC
+	- MAC address  : $MAC
   # Sudo            : $SUDO cmd"
