@@ -1,7 +1,7 @@
 # Overview
 
-Configure Virtual Machine with VirtualBox.
+Configure a virtual machine with VirtualBox.
 <br>
-[setup](https://github.com/hy-3/born2beroot/blob/master/setup.md)
+[settings you need to setup](https://github.com/hy-3/born2beroot/blob/master/setup.md)
 <br>
-[shell script which monitor the machine info](https://github.com/hy-3/born2beroot/blob/master/monitoring.sh)
+[a shell script which monitor the machine info](https://github.com/hy-3/born2beroot/blob/master/monitoring.sh)
